@@ -1,0 +1,4 @@
+ordinary chown as user1:
+chown: changing ownership of '/home/user1/cap-test.txt': Operation not permitted
+capability copy as user1:
+owner=root group=user1 file=/home/user1/cap-test.txt

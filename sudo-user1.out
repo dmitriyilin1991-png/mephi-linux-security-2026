@@ -1,0 +1,7 @@
+Matching Defaults entries for user1 on Debian:
+    env_reset, mail_badpass,
+    secure_path=/usr/local/sbin\:/usr/local/bin\:/usr/sbin\:/usr/bin\:/sbin\:/bin,
+    use_pty
+
+User user1 may run the following commands on Debian:
+    (root) NOPASSWD: /usr/bin/timedatectl set-time *

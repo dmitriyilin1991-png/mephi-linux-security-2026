@@ -1,0 +1,240 @@
+    1  sudo systemctl enable --now ssh
+    2  su -
+    3  groups
+    4  sudo systemctl enable --now ssh
+    5  groups
+    6  sudo apt update
+    7  sudo apt install -y openssh-server
+    8  sudo systemctl enable --now ssh
+    9  sudo systemctl status ssh --no-pager
+   10  sudo apt update
+   11  sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+   12  sudo mkdir -p /mnt/vboxadd
+   13  sudo sh /mnt/vboxadd/VBoxLinuxAdditions.run
+   14  sudo mount /dev/cdrom /mnt/vboxadd
+   15  sudo sh /mnt/vboxadd/VBoxLinuxAdditions.run
+   16  reboot
+   17  sudo reboot
+   18  groups
+   19  sudo apt update
+   20  sudo apt install -y openssh-server
+   21  sudo systemctl enable --now ssh
+   22  sudo systemctl status ssh --no-pager
+   23  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   24  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   25  chmod 600 ~/.ssh/authorized_keys
+   26  sudo -v
+   27  groups
+   28  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   29  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   30  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   31  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   32  chmod 600 ~/.ssh/authorized_keys
+   33  ls -l ~/.ssh/authorized_keys
+   34  systemctl is-active ssh
+   35  hostname -I
+   36  sudo -v
+   37  sudo apt-get update
+   38  sudo apt-get install -y git libcap2-bin procps
+   39  mkdir -p ~/mephi-linux-security-2026
+   40  sudo groupadd students
+   41  pwd
+   42  sudo groupadd students
+   43  sudo useradd -m -u 1234 -s /bin/bash -G students user1
+   44  sudo chage -M 90 user1
+   45  sudo sh -c 'printf "user1:%s\n" "$(openssl rand -base64 24)" | chpasswd'
+   46  id user1
+   47  sudo passwd -S user1
+   48  sudo chage -l user1
+   49  sudo find / -type f -perm -4000 -print 2>/dev/null > ~/mephi-linux-security-2026/setuid-files.out
+   50  wc -l ~/mephi-linux-security-2026/setuid-files.out
+   51  ps -eo pid,ruid,euid,user,args --no-headers | awk '$2 >= 1000 && $2 != 65534 && $3 == 0' > ~/mephi-linux-security-2026/privileged-processes-initial.out
+   52  cat ~/mephi-linux-security-2026/privileged-processes-initial.out
+   53  cp ~/mephi-linux-security-2026/privileged-processes-initial.out ~/mephi-linux-security-2026/privileged-processes.out
+   54  sudo sh -c 'printf "MEPHI LAB TEST DATA\n" > /root/mephi-lab-secret && chmod 600 /root/mephi-lab-secret'
+   55  sudo install -d -m 755 -o root -g root /home/user1/lab-bin
+   56  sudo cp /usr/bin/cat /home/user1/lab-bin/cat-suid
+   57  sudo chown root:root /home/user1/lab-bin/cat-suid
+   58  sudo chmod 4755 /home/user1/lab-bin/cat-suid
+   59  sudo -u user1 /usr/bin/cat /root/mephi-lab-secret
+   60  sudo -u user1 /home/user1/lab-bin/cat-suid /root/mephi-lab-secret
+   61  { printf 'ordinary cat as user1:\n'; sudo -u user1 /usr/bin/cat /root/mephi-lab-secret 2>&1; printf 'setuid copy as user1:\n'; sudo -u user1 /home/user1/lab-bin/cat-suid /root/mephi-lab-secret; } > ~/mephi-linux-security-2026/setuid-demo.out
+   62  sudo -u user1 touch /home/user1/cap-test.txt
+   63  sudo cp /usr/bin/chown /home/user1/lab-bin/chown-cap
+   64  sudo chown root:root /home/user1/lab-bin/chown-cap
+   65  sudo chmod 755 /home/user1/lab-bin/chown-cap
+   66  sudo setcap cap_chown+ep /home/user1/lab-bin/chown-cap
+   67  getcap /home/user1/lab-bin/chown-cap
+   68  sudo getcap /home/user1/lab-bin/chown-cap
+   69  sudo -u user1 /usr/bin/chown root /home/user1/cap-test.txt
+   70  sudo -u user1 /home/user1/lab-bin/chown-cap root /home/user1/cap-test.txt
+   71  stat -c '%U %G %n' /home/user1/cap-test.txt
+   72  sudo stat -c '%U %G %n' /home/user1/cap-test.txt
+   73  sudo chown user1:user1 /home/user1/cap-test.txt
+   74  { printf 'ordinary chown as user1:\n'; sudo -u user1 /usr/bin/chown root /home/user1/cap-test.txt 2>&1; printf 'capability copy as user1:\n'; sudo -u user1 /home/user1/lab-bin/chown-cap root /home/user1/cap-test.txt 2>&1; sudo stat -c 'owner=%U group=%G file=%n' /home/user1/cap-test.txt; } > ~/mephi-linux-security-2026/capability-demo.out
+   75  cat ~/mephi-linux-security-2026/capability-demo.out
+   76  echo 'user1 ALL=(root) NOPASSWD: /usr/bin/timedatectl set-time *' | sudo tee /etc/sudoers.d/user1-time
+   77  sudo chmod 440 /etc/sudoers.d/user1-time
+   78  sudo visudo -c
+   79  sudo -l -U user1
+   80  sudo -u user1 sudo -n /usr/bin/id
+   81  timedatectl status > ~/mephi-linux-security-2026/time-before.out
+   82  sudo timedatectl set-ntp false
+   83  sudo -u user1 sudo -n /usr/bin/timedatectl set-time "$(date -d '+2 minutes' '+%F %T')"
+   84  printf 'time-change-exit=%s\n' "$?"
+   85  timedatectl status > ~/mephi-linux-security-2026/time-changed.out
+   86  sudo timedatectl set-ntp true
+   87  timedatectl status
+   88  sudo stat /home/user1 > ~/mephi-linux-security-2026/stat.out
+   89  sudo stat /home/user1/lab-bin/cat-suid >> ~/mephi-linux-security-2026/stat.out
+   90  sudo stat /home/user1/lab-bin/chown-cap >> ~/mephi-linux-security-2026/stat.out
+   91  sudo getcap /home/user1/lab-bin/chown-cap > ~/mephi-linux-security-2026/getcap.out
+   92  sudo find / -type f -perm -4000 -print 2>/dev/null > ~/mephi-linux-security-2026/setuid-files.out
+   93  id user1 > ~/mephi-linux-security-2026/user-and-group.out
+   94  getent passwd user1 >> ~/mephi-linux-security-2026/user-and-group.out
+   95  getent group students >> ~/mephi-linux-security-2026/user-and-group.out
+   96  sudo chage -l user1 >> ~/mephi-linux-security-2026/user-and-group.out
+   97  history | tail -8
+   98  timedatectl status > ~/mephi-linux-security-2026/time-restored.out
+   99  sudo -l -U user1 > ~/mephi-linux-security-2026/sudo-user1.out
+  100  sudo cp /etc/sudoers.d/user1-time ~/mephi-linux-security-2026/sudoers-user1-time.out
+  101  sudo chown labadmin:labadmin ~/mephi-linux-security-2026/sudoers-user1-time.out
+  102  cat /etc/passwd > ~/mephi-linux-security-2026/etc-passwd.out
+  103  cat /etc/group > ~/mephi-linux-security-2026/etc-group.out
+  104  sudo cat /etc/sudoers > ~/mephi-linux-security-2026/etc-sudoers.out
+  105  sudo awk -F: 'BEGIN { OFS=":" } { $2="[REDACTED]"; print }' /etc/shadow > ~/mephi-linux-security-2026/etc-shadow-redacted.out
+  106  awk -F: '$2 != "[REDACTED]" { print $1 }' ~/mephi-linux-security-2026/etc-shadow-redacted.out
+  107  history > ~/mephi-linux-security-2026/history.out
+    1  sudo systemctl enable --now ssh
+    2  su -
+    3  groups
+    4  sudo systemctl enable --now ssh
+    5  groups
+    6  sudo apt update
+    7  sudo apt install -y openssh-server
+    8  sudo systemctl enable --now ssh
+    9  sudo systemctl status ssh --no-pager
+   10  sudo apt update
+   11  sudo apt install -y build-essential dkms linux-headers-$(uname -r)
+   12  sudo mkdir -p /mnt/vboxadd
+   13  sudo sh /mnt/vboxadd/VBoxLinuxAdditions.run
+   14  sudo mount /dev/cdrom /mnt/vboxadd
+   15  sudo sh /mnt/vboxadd/VBoxLinuxAdditions.run
+   16  reboot
+   17  sudo reboot
+   18  groups
+   19  sudo apt update
+   20  sudo apt install -y openssh-server
+   21  sudo systemctl enable --now ssh
+   22  sudo systemctl status ssh --no-pager
+   23  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   24  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   25  chmod 600 ~/.ssh/authorized_keys
+   26  sudo -v
+   27  groups
+   28  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   29  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   30  mkdir -p ~/.ssh && chmod 700 ~/.ssh
+   31  echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPwA4jQJ45qVkz01O4/UeWSR27DveaCGpGhCGYHfjg3u codex-redos-lab-2026' >> ~/.ssh/authorized_keys
+   32  chmod 600 ~/.ssh/authorized_keys
+   33  ls -l ~/.ssh/authorized_keys
+   34  systemctl is-active ssh
+   35  hostname -I
+   36  sudo -v
+   37  hostname -i
+   38  hostname -I
+   39  ip -4 -br addr
+   40  echo 'labadmin ALL=(ALL) NOPASSWD: ALL' | sudo tee /ect/sudoers.d/labadmin-codex
+   41  sudo chmod 440 /ect/sudoers.d/labadmin-codex
+   42  sudo chmod 440 /etc/sudoers.d/labadmin-codex
+   43  echo 'labadmin ALL=(ALL) NOPASSWD: ALL' | sudo tee /ect/sudoers.d/labadmin-codex
+   44  sudo chmod 440 /etc/sudoers.d/labadmin-codex
+   45  echo 'labadmin ALL=(ALL) NOPASSWD: ALL' | sudo tee /etc/sudoers.d/labadmin-codex
+   46  sudo chmod 440 /etc/sudoers.d/labadmin-codex
+   47  sudo visudo -c
+   48  sudo apt-get update
+   49  sudo apt-get install -y git libcap2-bin procps
+   50  mkdir -p ~/mephi-linux-security-2026
+   51  sudo groupadd students
+   52  pwd
+   53  sudo groupadd students
+   54  sudo useradd -m -u 1234 -s /bin/bash -G students user1
+   55  sudo chage -M 90 user1
+   56  sudo sh -c 'printf "user1:%s\n" "$(openssl rand -base64 24)" | chpasswd'
+   57  id user1
+   58  sudo passwd -S user1
+   59  sudo chage -l user1
+   60  sudo find / -type f -perm -4000 -print 2>/dev/null > ~/mephi-linux-security-2026/setuid-files.out
+   61  wc -l ~/mephi-linux-security-2026/setuid-files.out
+   62  ps -eo pid,ruid,euid,user,args --no-headers | awk '$2 >= 1000 && $2 != 65534 && $3 == 0' > ~/mephi-linux-security-2026/privileged-processes-initial.out
+   63  cat ~/mephi-linux-security-2026/privileged-processes-initial.out
+   64  cp ~/mephi-linux-security-2026/privileged-processes-initial.out ~/mephi-linux-security-2026/privileged-processes.out
+   65  sudo sh -c 'printf "MEPHI LAB TEST DATA\n" > /root/mephi-lab-secret && chmod 600 /root/mephi-lab-secret'
+   66  sudo install -d -m 755 -o root -g root /home/user1/lab-bin
+   67  sudo cp /usr/bin/cat /home/user1/lab-bin/cat-suid
+   68  sudo chown root:root /home/user1/lab-bin/cat-suid
+   69  sudo chmod 4755 /home/user1/lab-bin/cat-suid
+   70  sudo -u user1 /usr/bin/cat /root/mephi-lab-secret
+   71  sudo -u user1 /home/user1/lab-bin/cat-suid /root/mephi-lab-secret
+   72  { printf 'ordinary cat as user1:\n'; sudo -u user1 /usr/bin/cat /root/mephi-lab-secret 2>&1; printf 'setuid copy as user1:\n'; sudo -u user1 /home/user1/lab-bin/cat-suid /root/mephi-lab-secret; } > ~/mephi-linux-security-2026/setuid-demo.out
+   73  sudo -u user1 touch /home/user1/cap-test.txt
+   74  sudo cp /usr/bin/chown /home/user1/lab-bin/chown-cap
+   75  sudo chown root:root /home/user1/lab-bin/chown-cap
+   76  sudo chmod 755 /home/user1/lab-bin/chown-cap
+   77  sudo setcap cap_chown+ep /home/user1/lab-bin/chown-cap
+   78  getcap /home/user1/lab-bin/chown-cap
+   79  sudo getcap /home/user1/lab-bin/chown-cap
+   80  sudo -u user1 /usr/bin/chown root /home/user1/cap-test.txt
+   81  sudo -u user1 /home/user1/lab-bin/chown-cap root /home/user1/cap-test.txt
+   82  stat -c '%U %G %n' /home/user1/cap-test.txt
+   83  sudo stat -c '%U %G %n' /home/user1/cap-test.txt
+   84  sudo chown user1:user1 /home/user1/cap-test.txt
+   85  { printf 'ordinary chown as user1:\n'; sudo -u user1 /usr/bin/chown root /home/user1/cap-test.txt 2>&1; printf 'capability copy as user1:\n'; sudo -u user1 /home/user1/lab-bin/chown-cap root /home/user1/cap-test.txt 2>&1; sudo stat -c 'owner=%U group=%G file=%n' /home/user1/cap-test.txt; } > ~/mephi-linux-security-2026/capability-demo.out
+   86  cat ~/mephi-linux-security-2026/capability-demo.out
+   87  echo 'user1 ALL=(root) NOPASSWD: /usr/bin/timedatectl set-time *' | sudo tee /etc/sudoers.d/user1-time
+   88  sudo chmod 440 /etc/sudoers.d/user1-time
+   89  sudo visudo -c
+   90  sudo -l -U user1
+   91  sudo -u user1 sudo -n /usr/bin/id
+   92  timedatectl status > ~/mephi-linux-security-2026/time-before.out
+   93  sudo timedatectl set-ntp false
+   94  sudo -u user1 sudo -n /usr/bin/timedatectl set-time "$(date -d '+2 minutes' '+%F %T')"
+   95  printf 'time-change-exit=%s\n' "$?"
+   96  timedatectl status > ~/mephi-linux-security-2026/time-changed.out
+   97  sudo timedatectl set-ntp true
+   98  timedatectl status
+   99  sudo stat /home/user1 > ~/mephi-linux-security-2026/stat.out
+  100  sudo stat /home/user1/lab-bin/cat-suid >> ~/mephi-linux-security-2026/stat.out
+  101  sudo stat /home/user1/lab-bin/chown-cap >> ~/mephi-linux-security-2026/stat.out
+  102  sudo getcap /home/user1/lab-bin/chown-cap > ~/mephi-linux-security-2026/getcap.out
+  103  sudo find / -type f -perm -4000 -print 2>/dev/null > ~/mephi-linux-security-2026/setuid-files.out
+  104  id user1 > ~/mephi-linux-security-2026/user-and-group.out
+  105  getent passwd user1 >> ~/mephi-linux-security-2026/user-and-group.out
+  106  getent group students >> ~/mephi-linux-security-2026/user-and-group.out
+  107  sudo chage -l user1 >> ~/mephi-linux-security-2026/user-and-group.out
+  108  history | tail -8
+  109  timedatectl status > ~/mephi-linux-security-2026/time-restored.out
+  110  sudo -l -U user1 > ~/mephi-linux-security-2026/sudo-user1.out
+  111  sudo cp /etc/sudoers.d/user1-time ~/mephi-linux-security-2026/sudoers-user1-time.out
+  112  sudo chown labadmin:labadmin ~/mephi-linux-security-2026/sudoers-user1-time.out
+  113  cat /etc/passwd > ~/mephi-linux-security-2026/etc-passwd.out
+  114  cat /etc/group > ~/mephi-linux-security-2026/etc-group.out
+  115  sudo cat /etc/sudoers > ~/mephi-linux-security-2026/etc-sudoers.out
+  116  sudo awk -F: 'BEGIN { OFS=":" } { $2="[REDACTED]"; print }' /etc/shadow > ~/mephi-linux-security-2026/etc-shadow-redacted.out
+  117  awk -F: '$2 != "[REDACTED]" { print $1 }' ~/mephi-linux-security-2026/etc-shadow-redacted.out
+  118  history > ~/mephi-linux-security-2026/history.out
+  119  ls -lh ~/mephi-linux-security-2026
+  120  grep -E 'Local time|NTP service|System clock synchronized' ~/mephi-linux-security-2026/time-*.out
+  121  sudo reboot
+  122  date -Is > ~/mephi-linux-security-2026/post-reboot.out
+  123  id user1 >> ~/mephi-linux-security-2026/post-reboot.out
+  124  sudo chage -l user1 >> ~/mephi-linux-security-2026/post-reboot.out
+  125  sudo stat /home/user1/lab-bin/cat-suid >> ~/mephi-linux-security-2026/post-reboot.out
+  126  sudo getcap /home/user1/lab-bin/chown-cap >> ~/mephi-linux-security-2026/post-reboot.out
+  127  sudo -l -U user1 >> ~/mephi-linux-security-2026/post-reboot.out
+  128  sudo -u user1 touch /home/user1/cap-reboot.txt
+  129  sudo -u user1 /home/user1/lab-bin/chown-cap root /home/user1/cap-reboot.txt
+  130  sudo stat -c 'owner=%U file=%n' /home/user1/cap-reboot.txt >> ~/mephi-linux-security-2026/post-reboot.out
+  131  timedatectl status >> ~/mephi-linux-security-2026/post-reboot.out
+  132  cat ~/mephi-linux-security-2026/post-reboot.out
+  133  history > ~/mephi-linux-security-2026/history-after-reboot.out

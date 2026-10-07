@@ -1,0 +1,24 @@
+  File: /home/user1
+  Size: 4096      	Blocks: 8          IO Block: 4096   directory
+Device: 8,1	Inode: 1701353     Links: 3
+Access: (0700/drwx------)  Uid: ( 1234/   user1)   Gid: ( 1234/   user1)
+Access: 2026-10-03 19:29:15.059786985 +0800
+Modify: 2026-10-03 19:31:07.933467756 +0800
+Change: 2026-10-03 19:31:07.933467756 +0800
+ Birth: 2026-10-03 19:28:35.432545063 +0800
+  File: /home/user1/lab-bin/cat-suid
+  Size: 47592     	Blocks: 96         IO Block: 4096   regular file
+Device: 8,1	Inode: 1701369     Links: 1
+Access: (4755/-rwsr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-10-03 19:30:47.649899161 +0800
+Modify: 2026-10-03 19:30:23.938396075 +0800
+Change: 2026-10-03 19:30:34.786169775 +0800
+ Birth: 2026-10-03 19:30:23.938396075 +0800
+  File: /home/user1/lab-bin/chown-cap
+  Size: 76232     	Blocks: 152        IO Block: 4096   regular file
+Device: 8,1	Inode: 1701372     Links: 1
+Access: (0755/-rwxr-xr-x)  Uid: (    0/    root)   Gid: (    0/    root)
+Access: 2026-10-03 19:31:49.672563581 +0800
+Modify: 2026-10-03 19:31:13.037358340 +0800
+Change: 2026-10-03 19:31:28.901016164 +0800
+ Birth: 2026-10-03 19:31:13.037358340 +0800

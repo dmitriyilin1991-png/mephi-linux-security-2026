@@ -1,0 +1,1 @@
+   3278  1000     0 root     fusermount3 -o rw,nosuid,nodev,fsname=portal,auto_unmount,subtype=portal -- /run/user/1000/doc

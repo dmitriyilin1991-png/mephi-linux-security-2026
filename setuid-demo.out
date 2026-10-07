@@ -1,0 +1,4 @@
+ordinary cat as user1:
+cat: /root/mephi-lab-secret: Permission denied
+setuid copy as user1:
+MEPHI LAB TEST DATA
